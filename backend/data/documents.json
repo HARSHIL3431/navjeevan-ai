@@ -1,0 +1,20 @@
+[
+  {
+    "doc_type": "Kisan Credit Card (KCC)",
+    "keywords": ["kcc", "kisan credit card", "documents", "checklist"],
+    "documents": [
+      "Aadhaar card",
+      "Latest land record (7/12 extract)",
+      "Bank passbook",
+      "Passport-size photos",
+      "Mobile number linked to Aadhaar"
+    ],
+    "tip": "Carry originals and 2 photocopies for faster processing."
+  },
+  {
+    "doc_type": "PM-KISAN Enrollment",
+    "keywords": ["pm kisan", "registration documents"],
+    "documents": ["Aadhaar card", "Land ownership proof", "Bank account details"],
+    "tip": "Ensure Aadhaar and bank names match exactly."
+  }
+]

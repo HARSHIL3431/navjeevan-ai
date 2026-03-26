@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Surat APMC Mandi",
+    "city": "Surat",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2120, "cotton": 7040, "groundnut": 5420},
+    "distance_km": 8,
+    "contact_person": "Rajesh Patel",
+    "phone": "9876543210",
+    "tip": "Arrive before 8 AM for faster lot clearance."
+  },
+  {
+    "name": "Rajkot APMC Mandi",
+    "city": "Rajkot",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2185, "cotton": 7125, "groundnut": 5590},
+    "distance_km": 5,
+    "contact_person": "Harshad Joshi",
+    "phone": "9825011122",
+    "tip": "Use dry bags to avoid moisture deductions."
+  },
+  {
+    "name": "Ahmedabad Commodity Yard",
+    "city": "Ahmedabad",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2205, "cotton": 7210, "groundnut": 5515},
+    "distance_km": 11,
+    "contact_person": "Ketan Trivedi",
+    "phone": "9825022233",
+    "tip": "Auction window is strongest before noon."
+  },
+  {
+    "name": "Anand APMC Mandi",
+    "city": "Anand",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2148, "cotton": 7095, "groundnut": 5480},
+    "distance_km": 6,
+    "contact_person": "Mitesh Shah",
+    "phone": "9823012345",
+    "tip": "Bring Aadhaar copy for quicker gate entry."
+  },
+  {
+    "name": "Navsari APMC Mandi",
+    "city": "Navsari",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2108, "cotton": 7010, "groundnut": 5365},
+    "distance_km": 3,
+    "contact_person": "Bhavesh Desai",
+    "phone": "02637-255432",
+    "tip": "Call ahead to confirm same-day auction slots."
+  },
+  {
+    "name": "Vadodara Agri Market",
+    "city": "Vadodara",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2162, "cotton": 7168, "groundnut": 5460},
+    "distance_km": 7,
+    "contact_person": "Vimal Rana",
+    "phone": "9898012345",
+    "tip": "Separate graded produce for better bid value."
+  },
+  {
+    "name": "Bhavnagar APMC Yard",
+    "city": "Bhavnagar",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2136, "cotton": 7088, "groundnut": 5448},
+    "distance_km": 9,
+    "contact_person": "Paresh Vora",
+    "phone": "9825204455",
+    "tip": "Arrive with clean sorted lots to reduce deductions."
+  },
+  {
+    "name": "Junagadh APMC Market",
+    "city": "Junagadh",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2174, "cotton": 7146, "groundnut": 5625},
+    "distance_km": 4,
+    "contact_person": "Nilesh Solanki",
+    "phone": "9825327788",
+    "tip": "Groundnut lots with low moisture get top bids."
+  },
+  {
+    "name": "Mehsana Grain Exchange",
+    "city": "Mehsana",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2193, "cotton": 7194, "groundnut": 5538},
+    "distance_km": 10,
+    "contact_person": "Jignesh Parmar",
+    "phone": "9898223344",
+    "tip": "Complete weighment before noon to avoid queue delays."
+  },
+  {
+    "name": "Bharuch Agri Trade Center",
+    "city": "Bharuch",
+    "crops": ["wheat", "cotton", "groundnut"],
+    "price_per_qtl": {"wheat": 2154, "cotton": 7112, "groundnut": 5472},
+    "distance_km": 6,
+    "contact_person": "Amit Gohil",
+    "phone": "9898456677",
+    "tip": "Carry your previous sale slip for faster processing."
+  }
+]

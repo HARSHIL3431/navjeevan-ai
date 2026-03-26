@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.env
+frontend/node_modules/
+frontend/dist/
+.venv/ 
+__pycache__/ 
+*.pyc 
+.env 
+node_modules/ 
+dist/ 
+build/ 
+.vscode/ 
+Agriculture_price_dataset.csv 

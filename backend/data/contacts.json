@@ -1,0 +1,16 @@
+[
+  {
+    "crop": "cotton",
+    "city": "Surat",
+    "name": "Rajesh Textiles",
+    "phone": "9876543210",
+    "notes": "Bulk buyer, same-day payment for verified lots."
+  },
+  {
+    "crop": "groundnut",
+    "city": "Anand",
+    "name": "Anand Agro Traders",
+    "phone": "9898989898",
+    "notes": "Call before arrival to confirm daily buying rate."
+  }
+]

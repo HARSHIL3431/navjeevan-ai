@@ -1,0 +1,18 @@
+[
+  {
+    "city": "Navsari",
+    "mandi_name": "Navsari APMC Mandi",
+    "distance_km": 3,
+    "timings": "7:00 AM - 1:00 PM",
+    "crops": ["cotton", "sugarcane", "paddy"],
+    "phone": "02637-255432"
+  },
+  {
+    "city": "Surat",
+    "mandi_name": "Surat APMC Mandi",
+    "distance_km": 8,
+    "timings": "6:00 AM - 2:00 PM",
+    "crops": ["wheat", "groundnut", "rice"],
+    "phone": "0261-2345678"
+  }
+]

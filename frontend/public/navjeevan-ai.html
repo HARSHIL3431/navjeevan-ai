@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Navjeevan AI — नवजीवन</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --soil:#1C1008;--earth:#3D1F08;--clay:#7B3F1A;--wheat:#D4943A;
+  --gold:#F0B830;--straw:#F5DFA0;--cream:#FBF6EC;--smoke:#F3ECD8;
+  --leaf:#3A6B45;--sprout:#5B9E68;
+  --ink:#1A0E05;--mid:#5A3A1A;--muted:#9A7A5A;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 40px;
+  background:rgba(28,16,8,0.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(212,148,58,0.2);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.nav-leaf{width:32px;height:32px;background:var(--sprout);border-radius:50% 0 50% 0;display:flex;align-items:center;justify-content:center;font-size:15px;transform:rotate(-12deg);}
+.nav-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--straw);}
+.nav-tag{font-size:9px;color:var(--wheat);letter-spacing:.15em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-cta{background:var(--wheat);color:var(--soil);border:none;padding:10px 24px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.nav-cta:hover{background:var(--gold);}
+
+/* LANDING */
+#landing{display:block;}
+#chatapp{display:none;}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--soil);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+
+/* PHOTO STRIP */
+.photos{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  height:52vh;min-height:320px;gap:3px;position:relative;
+}
+.photos img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(0.55) saturate(1.15);
+}
+.photos::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(28,16,8,0.2) 0%,rgba(28,16,8,0.6) 70%,var(--soil) 100%);
+  pointer-events:none;
+}
+.photo-tags{
+  position:absolute;bottom:0;left:0;right:0;
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:3px;padding:0 0 12px;z-index:2;
+}
+.photo-tag{
+  padding:0 14px;display:flex;align-items:flex-end;
+}
+.photo-tag-inner{
+  background:rgba(28,16,8,0.82);border:1px solid rgba(212,148,58,0.35);
+  border-radius:4px;padding:6px 12px;
+}
+.pt-name{font-size:11px;font-weight:600;color:var(--straw);}
+.pt-loc{font-size:9px;color:var(--wheat);margin-top:1px;}
+
+/* HERO BODY */
+.hero-body{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;
+  padding:40px 60px 60px;align-items:start;position:relative;z-index:1;
+}
+.hero-hi{font-size:12px;color:var(--sprout);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:16px;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,66px);font-weight:900;line-height:1.04;color:var(--cream);margin-bottom:20px;}
+.hero-h1 em{color:var(--gold);font-style:normal;}
+.hero-p{font-size:15px;line-height:1.8;color:#A89070;max-width:400px;margin-bottom:34px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-g{background:var(--wheat);color:var(--soil);border:none;padding:14px 32px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-g:hover{background:var(--gold);transform:translateY(-2px);}
+.btn-o{background:transparent;color:var(--cream);border:1.5px solid rgba(255,255,255,0.2);padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:15px;cursor:pointer;transition:all .2s;}
+.btn-o:hover{border-color:var(--wheat);color:var(--wheat);}
+.hero-stats{display:flex;gap:36px;margin-top:44px;border-top:1px solid rgba(255,255,255,0.08);padding-top:26px;}
+.sn{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--wheat);}
+.sl{font-size:10px;color:#5A4030;text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
+
+/* FEATURE CARDS RIGHT */
+.feat-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(212,148,58,0.15);border-radius:12px;padding:26px;}
+.feat-panel-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--straw);margin-bottom:18px;}
+.feat-list{display:flex;flex-direction:column;gap:10px;}
+.feat-row{
+  display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:8px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);
+  cursor:pointer;transition:all .15s;
+}
+.feat-row:hover{background:rgba(212,148,58,0.1);border-color:rgba(212,148,58,0.3);}
+.feat-ic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.feat-t{font-size:13px;font-weight:600;color:var(--straw);}
+.feat-s{font-size:11px;color:#6A5040;margin-top:2px;}
+
+/* FARMER STRIP */
+.farmer-strip{background:var(--earth);border-top:1px solid rgba(212,148,58,0.1);padding:40px 60px;}
+.strip-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-bottom:22px;}
+.farmer-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.fcard{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;}
+.fcard img{width:100%;height:160px;object-fit:cover;display:block;filter:brightness(0.7) saturate(1.1);transition:filter .2s;}
+.fcard:hover img{filter:brightness(0.85) saturate(1.2);}
+.fcard-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(28,16,8,0.92),transparent);padding:22px 12px 10px;}
+.fcard-name{font-size:13px;font-weight:600;color:var(--cream);}
+.fcard-crop{font-size:10px;color:var(--wheat);margin-top:2px;}
+
+/* ═══ CHAT APP ═══ */
+.app-wrap{display:flex;height:100vh;}
+
+/* SIDEBAR */
+.sb{width:265px;flex-shrink:0;background:var(--soil);display:flex;flex-direction:column;height:100vh;overflow-y:auto;}
+.sb::-webkit-scrollbar{width:3px;}
+.sb::-webkit-scrollbar-thumb{background:#3A2818;}
+.sb-hd{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px;}
+.sb-leaf{width:28px;height:28px;background:var(--sprout);border-radius:50% 0 50% 0;display:flex;align-items:center;justify-content:center;font-size:13px;transform:rotate(-12deg);flex-shrink:0;}
+.sb-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--straw);}
+.sb-subtag{font-size:9px;color:var(--wheat);opacity:.7;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
+.sb-photo{margin:12px;border-radius:8px;overflow:hidden;height:120px;position:relative;}
+.sb-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.65) saturate(1.1);}
+.sb-pcap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(28,16,8,0.9),transparent);padding:18px 12px 10px;}
+.sb-pname{font-size:12px;font-weight:600;color:var(--cream);}
+.sb-ploc{font-size:10px;color:var(--wheat);}
+.sb-sec{padding:0 10px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#4A3020;font-weight:600;margin-top:4px;}
+.sb-qs{padding:0 6px;display:flex;flex-direction:column;gap:2px;}
+.sb-q{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:6px;border:1px solid transparent;background:transparent;width:100%;text-align:left;cursor:pointer;transition:all .14s;}
+.sb-q:hover{background:rgba(212,148,58,0.1);border-color:rgba(212,148,58,0.25);}
+.sb-qi{font-size:14px;flex-shrink:0;}
+.sb-qt{font-size:12px;color:#9A7050;line-height:1.35;font-family:'DM Sans',sans-serif;}
+.sb-q:hover .sb-qt{color:var(--straw);}
+.sb-photo2{margin:12px;border-radius:8px;overflow:hidden;height:110px;position:relative;margin-top:14px;}
+.sb-photo2 img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.65) saturate(1.1);}
+.sb-photo2-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(28,16,8,0.9),transparent);padding:16px 12px 10px;}
+.sb-bot{margin-top:auto;padding:12px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;}
+.sb-pow{font-size:10px;color:#3A2818;letter-spacing:.04em;}
+.sb-pow span{color:var(--wheat);}
+
+/* MAIN */
+.chat-main{flex:1;display:flex;flex-direction:column;height:100vh;background:var(--smoke);}
+.ctop{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;background:var(--cream);border-bottom:1px solid #E0D8C8;flex-shrink:0;}
+.ctop-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--soil);}
+.ctop-sub{font-size:12px;color:var(--clay);margin-top:1px;}
+.ctop-right{display:flex;align-items:center;gap:10px;}
+.status-p{display:flex;align-items:center;gap:7px;background:rgba(58,107,69,0.12);border:1px solid rgba(58,107,69,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--leaf);font-weight:500;}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--sprout);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.back-btn{background:none;border:1px solid #D8CEBB;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;color:var(--clay);font-family:'DM Sans',sans-serif;}
+.back-btn:hover{border-color:var(--clay);}
+
+/* MESSAGES */
+.msgs{flex:1;overflow-y:auto;padding:22px 22px 0;display:flex;flex-direction:column;gap:18px;}
+.msgs::-webkit-scrollbar{width:4px;}
+.msgs::-webkit-scrollbar-thumb{background:#D8CEBB;border-radius:4px;}
+
+/* WELCOME CARD */
+.wcard{background:var(--cream);border:1px solid #E0D8C8;border-radius:12px;overflow:hidden;box-shadow:0 2px 14px rgba(28,16,8,0.07);}
+.wc-strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;height:155px;gap:2px;}
+.wc-strip img{width:100%;height:100%;object-fit:cover;display:block;}
+.wc-body{padding:20px 22px;}
+.wc-hi{font-size:21px;font-weight:700;color:var(--soil);margin-bottom:3px;}
+.wc-sub{font-family:'Playfair Display',serif;font-size:14px;color:var(--clay);font-style:italic;margin-bottom:11px;}
+.wc-desc{font-size:13px;color:#6A5040;line-height:1.7;margin-bottom:16px;}
+.wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.wc-fc{background:var(--smoke);border:1px solid #E0D8C8;border-radius:8px;padding:11px;cursor:pointer;transition:all .14s;}
+.wc-fc:hover{background:rgba(212,148,58,0.1);border-color:rgba(212,148,58,0.4);transform:translateY(-1px);}
+.wc-fi{font-size:20px;margin-bottom:5px;}
+.wc-ft{font-size:12px;font-weight:600;color:var(--soil);}
+.wc-fd{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;}
+
+/* BUBBLES */
+.mrow{display:flex;gap:10px;animation:mIn .25s ease;}
+.mrow.user{flex-direction:row-reverse;}
+@keyframes mIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.mav{width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #E0D8C8;}
+.mav img{width:100%;height:100%;object-fit:cover;display:block;}
+.mav-ai{background:var(--soil);display:flex;align-items:center;justify-content:center;font-size:15px;width:34px;height:34px;border-radius:50%;flex-shrink:0;border:2px solid var(--earth);}
+.bbl{border-radius:14px;padding:12px 16px;font-size:14px;line-height:1.65;max-width:72%;}
+.user .bbl{background:var(--soil);color:var(--cream);border-bottom-right-radius:3px;}
+.ai .bbl{background:var(--cream);color:var(--ink);border:1px solid #E0D8C8;border-bottom-left-radius:3px;box-shadow:0 1px 6px rgba(28,16,8,0.05);}
+
+/* AI RESPONSE CARD */
+.rcrd{background:var(--cream);border:1px solid #E0D8C8;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(28,16,8,0.07);max-width:100%;}
+.rhead{background:var(--soil);padding:11px 16px;display:flex;align-items:center;gap:10px;}
+.rh-icon{font-size:15px;}
+.rh-title{font-family:'Playfair Display',serif;font-size:14px;color:var(--straw);font-weight:700;flex:1;}
+.rh-badge{background:rgba(212,148,58,0.2);border:1px solid rgba(212,148,58,0.4);border-radius:20px;padding:3px 10px;font-size:9px;color:var(--wheat);letter-spacing:.08em;text-transform:uppercase;}
+.rbody{padding:14px 18px;}
+.rbody p{font-size:13.5px;line-height:1.75;color:var(--ink);margin-bottom:7px;}
+.rbody strong{color:var(--earth);font-weight:600;}
+.steps{list-style:none;margin:8px 0;}
+.steps li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed rgba(28,16,8,0.07);font-size:13px;}
+.steps li:last-child{border:none;}
+.snum{min-width:21px;height:21px;background:var(--soil);color:var(--straw);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0;}
+.chip{display:inline-flex;align-items:center;gap:4px;background:var(--smoke);border:1px solid #E0D8C8;border-radius:20px;padding:4px 11px;font-size:11.5px;color:var(--earth);}
+.tipbox{background:rgba(212,148,58,0.1);border-radius:6px;padding:9px 13px;margin-top:9px;font-size:12.5px;color:var(--earth);display:flex;gap:7px;align-items:flex-start;line-height:1.5;}
+
+/* TYPING */
+.trow{display:flex;gap:10px;align-items:center;}
+.tdots{background:var(--cream);border:1px solid #E0D8C8;border-radius:14px;padding:12px 16px;display:flex;gap:4px;align-items:center;}
+.tdots span{width:7px;height:7px;background:#C0A080;border-radius:50%;animation:tb 1.2s infinite;}
+.tdots span:nth-child(2){animation-delay:.2s;}
+.tdots span:nth-child(3){animation-delay:.4s;}
+@keyframes tb{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+
+/* INPUT */
+.inp-area{padding:14px 22px 18px;background:var(--cream);border-top:1px solid #E0D8C8;flex-shrink:0;}
+.inp-box{display:flex;border:1.5px solid #D8CEBB;border-radius:10px;background:white;overflow:hidden;transition:border-color .2s;box-shadow:0 2px 6px rgba(28,16,8,0.05);}
+.inp-box:focus-within{border-color:var(--clay);}
+#msginput{flex:1;border:none;outline:none;padding:13px 17px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:transparent;resize:none;}
+#msginput::placeholder{color:#C0A880;}
+.sbtn{background:var(--soil);border:none;padding:0 20px;cursor:pointer;color:var(--wheat);font-size:20px;transition:background .2s;display:flex;align-items:center;justify-content:center;}
+.sbtn:hover{background:var(--earth);}
+.sbtn:disabled{background:#3A2818;cursor:not-allowed;}
+.hints{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
+.hint{background:var(--smoke);border:1px solid #E0D8C8;border-radius:20px;padding:4px 11px;font-size:11px;color:var(--clay);cursor:pointer;transition:all .14s;}
+.hint:hover{background:rgba(212,148,58,0.15);border-color:var(--wheat);color:var(--earth);}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(28,16,8,0.88);backdrop-filter:blur(6px);z-index:999;display:flex;align-items:center;justify-content:center;}
+.mdl{background:var(--cream);border-radius:16px;padding:38px;max-width:390px;width:90%;box-shadow:0 24px 60px rgba(0,0,0,0.5);animation:mIn .3s ease;}
+.mdl-icon{font-size:38px;text-align:center;margin-bottom:14px;}
+.mdl-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--soil);text-align:center;margin-bottom:8px;}
+.mdl-desc{font-size:13px;color:var(--clay);text-align:center;line-height:1.6;margin-bottom:22px;}
+.mdl-lbl{font-size:11px;font-weight:600;color:var(--earth);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+.mdl-inp{width:100%;border:1.5px solid #D8CEBB;border-radius:8px;padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:white;outline:none;transition:border-color .2s;margin-bottom:11px;}
+.mdl-inp:focus{border-color:var(--clay);}
+.mdl-pri{width:100%;background:var(--soil);color:var(--straw);border:none;padding:13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-bottom:9px;}
+.mdl-pri:hover{background:var(--earth);}
+.mdl-demo{width:100%;background:transparent;color:var(--clay);border:1.5px solid #D8CEBB;padding:11px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.mdl-demo:hover{border-color:var(--clay);color:var(--earth);}
+.mdl-note{font-size:10px;color:#A08060;text-align:center;margin-top:11px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="mbg" id="modal" style="display:none;">
+  <div class="mdl">
+    <div class="mdl-icon">🌾</div>
+    <div class="mdl-title">Navjeevan AI</div>
+    <div class="mdl-desc">Enter your Anthropic API key for live AI responses, or use Demo Mode instantly — no key needed.</div>
+    <div class="mdl-lbl">Anthropic API Key (optional)</div>
+    <input class="mdl-inp" type="password" id="apiinput" placeholder="sk-ant-api03-..."/>
+    <button class="mdl-pri" onclick="doKey()">✦ Start with Live AI</button>
+    <button class="mdl-demo" onclick="doDemo()">▷ Try Demo Mode — No key needed</button>
+    <div class="mdl-note">Key stays in memory only. Never stored or shared anywhere except Anthropic's API.</div>
+  </div>
+</div>
+
+<!-- ═══ LANDING ═══ -->
+<div id="landing">
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.scrollTo(0,0)">
+      <div class="nav-leaf">🌱</div>
+      <div><div class="nav-name">Navjeevan AI</div><span class="nav-tag">नवजीवन · New Life</span></div>
+    </div>
+    <button class="nav-cta" onclick="openModal()">Start Chatting →</button>
+  </nav>
+
+  <div class="hero">
+    <!-- PHOTOS -->
+    <div class="photos">
+      <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700&q=80&auto=format&fit=crop" alt="Farmer" onerror="this.src='https://picsum.photos/seed/nj1/700/400'"/>
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=80&auto=format&fit=crop" alt="Field" onerror="this.src='https://picsum.photos/seed/nj2/700/400'"/>
+      <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=700&q=80&auto=format&fit=crop" alt="Crops" onerror="this.src='https://picsum.photos/seed/nj3/700/400'"/>
+      <div class="photo-tags">
+        <div class="photo-tag"><div class="photo-tag-inner"><div class="pt-name">Ramesh Patel</div><div class="pt-loc">📍 Surat · Wheat Farmer</div></div></div>
+        <div class="photo-tag"><div class="photo-tag-inner"><div class="pt-name">Kamlaben Desai</div><div class="pt-loc">📍 Anand · Cotton Farmer</div></div></div>
+        <div class="photo-tag"><div class="photo-tag-inner"><div class="pt-name">Sunita Devi</div><div class="pt-loc">📍 Navsari · Groundnut</div></div></div>
+      </div>
+    </div>
+
+    <!-- HERO CONTENT -->
+    <div class="hero-body">
+      <div>
+        <div class="hero-hi">किसान का सच्चा साथी · AI Powered</div>
+        <h1 class="hero-h1">Smart answers<br/>for every<br/><em>Indian Farmer</em></h1>
+        <p class="hero-p">Ask about the best market to sell your crop, government scheme eligibility, document checklists, and APMC mandis — all in plain language.</p>
+        <div class="hero-btns">
+          <button class="btn-g" onclick="openModal()">Start Chatting →</button>
+          <button class="btn-o" onclick="openModal()">See Live Demo</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="sn">6</div><div class="sl">AI Features</div></div>
+          <div><div class="sn">5</div><div class="sl">Data Sources</div></div>
+          <div><div class="sn">140M</div><div class="sl">Farmers Served</div></div>
+        </div>
+      </div>
+      <div class="feat-panel">
+        <div class="feat-panel-title">What can I help with?</div>
+        <div class="feat-list">
+          <div class="feat-row" onclick="openModalQ('Best market to sell wheat in Surat today')">
+            <div class="feat-ic" style="background:rgba(212,148,58,0.15);">🌾</div>
+            <div><div class="feat-t">Smart Market Helper</div><div class="feat-s">Best price, nearest mandi, trader contacts</div></div>
+          </div>
+          <div class="feat-row" onclick="openModalQ('PM Kisan scheme eligibility Gujarat')">
+            <div class="feat-ic" style="background:rgba(58,107,69,0.15);">📋</div>
+            <div><div class="feat-t">Govt Scheme Explainer</div><div class="feat-s">PM Kisan, Fasal Bima, subsidies</div></div>
+          </div>
+          <div class="feat-row" onclick="openModalQ('Documents for Kisan Credit Card KCC')">
+            <div class="feat-ic" style="background:rgba(91,91,168,0.12);">📄</div>
+            <div><div class="feat-t">Document Checklist</div><div class="feat-s">Complete list for loans, schemes & more</div></div>
+          </div>
+          <div class="feat-row" onclick="openModalQ('Cotton trader buyer contact Surat')">
+            <div class="feat-ic" style="background:rgba(91,143,168,0.12);">📞</div>
+            <div><div class="feat-t">Trader Contact Finder</div><div class="feat-s">Local buyers, phone & WhatsApp</div></div>
+          </div>
+          <div class="feat-row" onclick="openModalQ('APMC mandi near Navsari Gujarat timings')">
+            <div class="feat-ic" style="background:rgba(160,82,45,0.12);">🏪</div>
+            <div><div class="feat-t">APMC Mandi Finder</div><div class="feat-s">Location, timings, crops traded</div></div>
+          </div>
+          <div class="feat-row" onclick="openModalQ('Compare groundnut prices Gujarat mandis')">
+            <div class="feat-ic" style="background:rgba(212,148,58,0.12);">📊</div>
+            <div><div class="feat-t">Price Comparison</div><div class="feat-s">Market vs market, best deal</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FARMER STRIP -->
+  <div class="farmer-strip">
+    <div class="strip-label">🌿 Farmers we serve · Gujarat & Beyond</div>
+    <div class="farmer-row">
+      <div class="fcard" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&q=80&auto=format&fit=crop" alt="F1" onerror="this.src='https://picsum.photos/seed/fc1/400/200'"/>
+        <div class="fcard-info"><div class="fcard-name">Ramesh Patel</div><div class="fcard-crop">🌾 Wheat · Surat</div></div>
+      </div>
+      <div class="fcard" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=80&auto=format&fit=crop" alt="F2" onerror="this.src='https://picsum.photos/seed/fc2/400/200'"/>
+        <div class="fcard-info"><div class="fcard-name">Kamlaben Desai</div><div class="fcard-crop">🌿 Cotton · Anand</div></div>
+      </div>
+      <div class="fcard" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80&auto=format&fit=crop" alt="F3" onerror="this.src='https://picsum.photos/seed/fc3/400/200'"/>
+        <div class="fcard-info"><div class="fcard-name">Sunita Devi</div><div class="fcard-crop">🥜 Groundnut · Navsari</div></div>
+      </div>
+      <div class="fcard" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=80&auto=format&fit=crop" alt="F4" onerror="this.src='https://picsum.photos/seed/fc4/400/200'"/>
+        <div class="fcard-info"><div class="fcard-name">Vikram Singh</div><div class="fcard-crop">🌾 Rice · Bardoli</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHAT APP ═══ -->
+<div id="chatapp">
+  <div class="app-wrap">
+    <!-- SIDEBAR -->
+    <div class="sb">
+      <div class="sb-hd">
+        <div class="sb-leaf">🌱</div>
+        <div><div class="sb-name">Navjeevan AI</div><span class="sb-subtag">किसान का साथी</span></div>
+      </div>
+      <div class="sb-photo">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&q=80&auto=format&fit=crop" alt="Farmer" onerror="this.src='https://picsum.photos/seed/sb1/400/200'"/>
+        <div class="sb-pcap"><div class="sb-pname">🌾 Gujarat Farmers</div><div class="sb-ploc">📍 Surat · Navsari · Bardoli</div></div>
+      </div>
+      <div class="sb-sec">Quick Queries</div>
+      <div class="sb-qs">
+        <button class="sb-q" onclick="qqry('Best market to sell wheat in Surat today')"><span class="sb-qi">🌾</span><span class="sb-qt">Best wheat market — Surat</span></button>
+        <button class="sb-q" onclick="qqry('PM Kisan Yojana eligibility and benefits')"><span class="sb-qi">📋</span><span class="sb-qt">PM Kisan scheme eligibility</span></button>
+        <button class="sb-q" onclick="qqry('Documents required for Kisan Credit Card KCC')"><span class="sb-qi">📄</span><span class="sb-qt">Kisan Credit Card documents</span></button>
+        <button class="sb-q" onclick="qqry('Cotton trader buyer contact in Surat')"><span class="sb-qi">📞</span><span class="sb-qt">Cotton trader in Surat</span></button>
+        <button class="sb-q" onclick="qqry('Nearest APMC mandi near Navsari timings')"><span class="sb-qi">🏪</span><span class="sb-qt">APMC mandis near Navsari</span></button>
+        <button class="sb-q" onclick="qqry('Compare groundnut prices Gujarat mandis')"><span class="sb-qi">📊</span><span class="sb-qt">Groundnut price comparison</span></button>
+        <button class="sb-q" onclick="qqry('PM Fasal Bima Yojana crop insurance details')"><span class="sb-qi">🛡️</span><span class="sb-qt">Fasal Bima crop insurance</span></button>
+      </div>
+      <div class="sb-photo2">
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80&auto=format&fit=crop" alt="Farmer 2" onerror="this.src='https://picsum.photos/seed/sb2/400/200'"/>
+        <div class="sb-photo2-cap"><div class="sb-pname">🌱 Growing together</div><div class="sb-ploc">Empowering 140M farmers</div></div>
+      </div>
+      <div class="sb-bot"><div class="sb-pow">Powered by <span>Claude AI</span> · Made for Bharat 🇮🇳</div></div>
+    </div>
+
+    <!-- MAIN CHAT -->
+    <div class="chat-main">
+      <div class="ctop">
+        <div><div class="ctop-title">Navjeevan AI Assistant</div><div class="ctop-sub">Ask anything — markets, schemes, documents, mandis</div></div>
+        <div class="ctop-right">
+          <div class="status-p"><div class="sdot"></div><span id="slabel">Ready</span></div>
+          <button class="back-btn" onclick="goBack()">← Back</button>
+        </div>
+      </div>
+
+      <div class="msgs" id="msgs">
+        <div class="wcard">
+          <div class="wc-strip">
+            <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&q=80&auto=format&fit=crop" alt="F" onerror="this.src='https://picsum.photos/seed/wc1/600/200'"/>
+            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=80&auto=format&fit=crop" alt="F" onerror="this.src='https://picsum.photos/seed/wc2/400/200'"/>
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80&auto=format&fit=crop" alt="F" onerror="this.src='https://picsum.photos/seed/wc3/400/200'"/>
+          </div>
+          <div class="wc-body">
+            <div class="wc-hi">🙏 नमस्ते किसान भाई!</div>
+            <div class="wc-sub">Welcome — I am your Navjeevan AI farming assistant</div>
+            <div class="wc-desc">I help you find the <strong>best market</strong> for your crops, check <strong>government scheme eligibility</strong>, get <strong>document checklists</strong>, and locate <strong>APMC mandis</strong>. Ask me anything in simple English!</div>
+            <div class="wc-grid">
+              <div class="wc-fc" onclick="qqry('Best market to sell wheat in Surat today')"><div class="wc-fi">🌾</div><div class="wc-ft">Market Helper</div><div class="wc-fd">Best price & nearest mandi</div></div>
+              <div class="wc-fc" onclick="qqry('PM Kisan Yojana eligibility and benefits')"><div class="wc-fi">📋</div><div class="wc-ft">Govt Schemes</div><div class="wc-fd">Eligibility & steps</div></div>
+              <div class="wc-fc" onclick="qqry('Documents required for Kisan Credit Card KCC')"><div class="wc-fi">📄</div><div class="wc-ft">Documents</div><div class="wc-fd">Complete checklist</div></div>
+              <div class="wc-fc" onclick="qqry('Cotton trader buyer contact in Surat')"><div class="wc-fi">📞</div><div class="wc-ft">Traders</div><div class="wc-fd">Local buyer contacts</div></div>
+              <div class="wc-fc" onclick="qqry('Nearest APMC mandi near Navsari Gujarat')"><div class="wc-fi">🏪</div><div class="wc-ft">APMC Mandis</div><div class="wc-fd">Location & timings</div></div>
+              <div class="wc-fc" onclick="qqry('Compare wheat groundnut prices Gujarat')"><div class="wc-fi">📊</div><div class="wc-ft">Price Compare</div><div class="wc-fd">Market vs market</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inp-area">
+        <div class="inp-box">
+          <textarea id="msginput" rows="1" placeholder="Ask anything... e.g. 'Where to sell wheat in Surat?'" onkeydown="onK(event)" oninput="rsz(this)"></textarea>
+          <button class="sbtn" id="sbtn" onclick="doSend()">➤</button>
+        </div>
+        <div class="hints">
+          <div class="hint" onclick="si('Wheat market Surat price today')">🌾 Wheat market</div>
+          <div class="hint" onclick="si('PM Kisan eligibility')">📋 PM Kisan</div>
+          <div class="hint" onclick="si('Kisan Credit Card documents')">📄 KCC docs</div>
+          <div class="hint" onclick="si('Cotton trader Surat')">📞 Traders</div>
+          <div class="hint" onclick="si('APMC mandi near Navsari')">🏪 APMC</div>
+          <div class="hint" onclick="si('Groundnut price comparison Gujarat')">📊 Prices</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let APIKEY='', DEMO=false, busy=false, pq='';
+
+function openModal(q){ pq=q||''; document.getElementById('modal').style.display='flex'; }
+function openModalQ(q){ openModal(q); }
+function doKey(){
+  const k=document.getElementById('apiinput').value.trim();
+  APIKEY=k; DEMO=false; launchChat();
+}
+function doDemo(){ DEMO=true; APIKEY=''; launchChat(); }
+function launchChat(){
+  document.getElementById('modal').style.display='none';
+  document.getElementById('landing').style.display='none';
+  document.getElementById('chatapp').style.display='block';
+  document.getElementById('slabel').textContent = DEMO ? 'Demo Mode' : 'Live AI';
+  if(pq){ setTimeout(()=>{qqry(pq);pq='';},400); }
+}
+function goBack(){
+  document.getElementById('chatapp').style.display='none';
+  document.getElementById('landing').style.display='block';
+}
+
+function onK(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doSend();} }
+function rsz(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+function si(t){ document.getElementById('msginput').value=t; document.getElementById('msginput').focus(); }
+function qqry(t){ document.getElementById('msginput').value=t; doSend(); }
+
+const msgsEl=()=>document.getElementById('msgs');
+const scr=()=>{ const m=msgsEl(); m.scrollTop=m.scrollHeight; };
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function doSend(){
+  const inp=document.getElementById('msginput');
+  const txt=inp.value.trim();
+  if(!txt||busy) return;
+  inp.value=''; inp.style.height='auto';
+  busy=true; document.getElementById('sbtn').disabled=true;
+  addUser(txt);
+  const ty=addTyping();
+  scr();
+  try{
+    let reply='';
+    try{
+      reply = await callAPI(txt);
+    } catch(apiErr){
+      if(DEMO){
+        await wait(600);
+        reply = demoR(txt);
+      } else {
+        throw apiErr;
+      }
+    }
+    ty.remove(); addAI(txt,reply);
+  } catch(e){ ty.remove(); addBubble('❌ '+e.message+'. Try Demo Mode.'); }
+  busy=false; document.getElementById('sbtn').disabled=false; scr();
+}
+
+function addUser(t){
+  const d=document.createElement('div');
+  d.className='mrow user';
+  d.innerHTML=`<div class="mav"><img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=80&q=60&auto=format&fit=crop" alt="u" onerror="this.parentElement.style.background='#7B3F1A';this.style.display='none'"/></div><div class="bbl">${esc(t)}</div>`;
+  msgsEl().appendChild(d);
+}
+function addTyping(){
+  const d=document.createElement('div'); d.className='trow';
+  d.innerHTML=`<div class="mav-ai">🌱</div><div class="tdots"><span></span><span></span><span></span></div>`;
+  msgsEl().appendChild(d); scr(); return d;
+}
+function addBubble(t){
+  const d=document.createElement('div'); d.className='mrow ai';
+  d.innerHTML=`<div class="mav-ai">🌱</div><div class="bbl">${t}</div>`;
+  msgsEl().appendChild(d);
+}
+function addAI(q,txt){
+  const intent=getIntent(q);
+  const hd=hdrs[intent]||hdrs.general;
+  const d=document.createElement('div'); d.className='mrow ai'; d.style.maxWidth='100%';
+  d.innerHTML=`<div class="mav-ai">🌱</div><div class="rcrd"><div class="rhead"><span class="rh-icon">${hd.i}</span><span class="rh-title">${hd.t}</span><span class="rh-badge">${hd.b}</span></div><div class="rbody">${fmt(txt,intent)}</div></div>`;
+  msgsEl().appendChild(d);
+}
+
+const hdrs={
+  market:{i:'🌾',t:'Market Recommendation',b:'MARKET'},
+  scheme:{i:'📋',t:'Government Scheme Info',b:'SCHEME'},
+  document:{i:'📄',t:'Document Checklist',b:'DOCUMENTS'},
+  contact:{i:'📞',t:'Trader Contacts',b:'CONTACTS'},
+  mandi:{i:'🏪',t:'APMC Mandi Info',b:'MANDI'},
+  compare:{i:'📊',t:'Price Comparison',b:'COMPARE'},
+  general:{i:'🌱',t:'Navjeevan AI',b:'INFO'},
+};
+
+function getIntent(q){
+  q=q.toLowerCase();
+  if(/scheme|yojana|subsidy|fasal bima|eligib/i.test(q)) return 'scheme';
+  if(/document|docs|papers|checklist|kcc|credit card|required/i.test(q)) return 'document';
+  if(/sell|market|price|rate|best market|msp/i.test(q)) return 'market';
+  if(/trader|buyer|contact|retailer|dealer|number|phone/i.test(q)) return 'contact';
+  if(/mandi|apmc|nearest|near|timing/i.test(q)) return 'mandi';
+  if(/compar|across|all market/i.test(q)) return 'compare';
+  return 'general';
+}
+
+function fmt(txt,intent){
+  const lines=txt.split('\n').filter(l=>l.trim());
+  let h='', steps=[];
+  const flush=()=>{ if(steps.length){h+='<ul class="steps">'+steps.map((s,i)=>`<li><span class="snum">${i+1}</span><span>${s}</span></li>`).join('')+'</ul>'; steps=[];} };
+  lines.forEach(l=>{
+    l=l.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    if(/^\d+\.\s/.test(l)){ steps.push(l.replace(/^\d+\.\s*/,'')); }
+    else{
+      flush();
+      if(/^(best option|price|distance|contact):/i.test(l)){const[k,...v]=l.split(':');h+=`<p><strong>${k}:</strong>${v.join(':')}</p>`;}
+      else if(/^tip:/i.test(l)){h+=`<div class="tipbox">💡 ${l.replace(/^tip:\s*/i,'')}</div>`;}
+      else if(/^- /.test(l)){h+=`<span class="chip">✓ ${l.replace(/^- /,'')}</span>`;}
+      else if(l.trim()){h+=`<p>${l}</p>`;}
+    }
+  });
+  flush();
+  return h||`<p>${esc(txt)}</p>`;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function callAPI(q){
+  const r=await fetch('http://localhost:8000/chat',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({query:q})
+  });
+  if(!r.ok){
+    let e={};
+    try{ e=await r.json(); }catch(_){ e={}; }
+    throw new Error(e.detail||e.response||('API error '+r.status));
+  }
+  const data=await r.json();
+  return data.response || 'Sorry, I do not have a response right now.';
+}
+
+function demoR(q){
+  const ql=q.toLowerCase();
+  if(/wheat.*sell|sell.*wheat|wheat.*market|market.*wheat|wheat.*surat|best market/i.test(ql))
+    return `Best option: Surat APMC Mandi, Surat\nPrice: Rs. 2,100/quintal\nDistance: 8 km from Surat city\nContact: Rajesh Patel — 9876543210\n\nOther options:\n- Bardoli Mandi: Rs. 2,050/qtl — 28 km away\n- Navsari Mandi: Rs. 1,980/qtl — 38 km away\n- Anand Mandi: Rs. 2,080/qtl — 95 km away\n\nTip: Arrive before 8 AM on weekdays for the best bidding rates. Carry your Aadhaar and land records for smooth entry.`;
+  if(/pm kisan|kisan samman/i.test(ql))
+    return `Scheme: PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)\nWho can apply: All farmers owning less than 2 hectares of land\nBenefit: Rs. 6,000 per year in 3 installments directly to your bank account\n\n1. Visit nearest Common Service Centre (CSC) or bank branch\n2. Fill the PM-KISAN registration form with Aadhaar and land details\n3. Submit land ownership proof (7/12 extract)\n4. Link your bank account for direct transfer\n5. Track at pmkisan.gov.in\n\nDocuments needed:\n- Aadhaar card\n- Land records (7/12 extract)\n- Bank passbook\n- Mobile number linked to Aadhaar\n\nHelpline: 155261`;
+  if(/credit card|kcc|document|paper|checklist/i.test(ql))
+    return `Documents needed for Kisan Credit Card (KCC):\n\n- Aadhaar card (original + photocopy)\n- Land records — 7/12 extract (issued in last 3 months)\n- Bank passbook (account in farmer's name)\n- Passport size photo (2 copies)\n- Mobile number linked to Aadhaar\n- Crop sowing certificate (if available)\n- NOC from previous lender (if applicable)\n\nTip: Apply at any nationalized bank, cooperative bank, or CSC center. Processing takes 7–14 working days. Bring originals AND 2 photocopies of everything.`;
+  if(/cotton.*trader|trader.*cotton|buyer|contact.*cotton/i.test(ql))
+    return `Cotton Traders in Surat, Gujarat:\n\n1. **Rajesh Textiles** — Rajesh Patel\n📞 9876543210 · WhatsApp available\nBulk buying — min 10 quintals · Gujarati, Hindi\n\n2. **Gujarat Cotton Merchants** — Suresh Mehta\n📞 9823456789 · WhatsApp available\nAll varieties · Gujarati, Hindi, English\n\n3. **APMC Licensed Agent** — Dinesh Patil\n📞 9712345678\nLicensed buyer · Payment same day\n\nTip: Compare quotes from 2–3 traders before selling. Always sell through APMC for guaranteed payment.`;
+  if(/mandi|apmc|navsari|nearest|near/i.test(ql))
+    return `Nearby APMC Mandis — South Gujarat:\n\n1. Surat APMC Mandi — 8 km from Surat\n⏰ 6:00 AM – 2:00 PM (Mon–Sat)\n🌾 Wheat, cotton, groundnut, rice\n📞 0261-2345678 · Code: GJ-SUR-001\n\n2. Navsari APMC Mandi — 3 km from Navsari\n⏰ 7:00 AM – 1:00 PM (Mon–Sat)\n🌾 Cotton, sugarcane, paddy\n📞 02637-255432 · Code: GJ-NAV-001\n\n3. Bardoli Mandi — 2 km from Bardoli\n⏰ 6:30 AM – 12:30 PM (Mon–Fri)\n🌾 Wheat, groundnut\n📞 02622-220145\n\nTip: Call ahead to confirm your crop is available for auction that day.`;
+  if(/groundnut|compar|price.*all|all.*price/i.test(ql))
+    return `Groundnut Price Comparison — South Gujarat:\n\n- Rajkot APMC: Rs. 5,600/qtl — 220 km — Highest price\n- Anand APMC: Rs. 5,450/qtl — 95 km — Good balance\n- Surat APMC: Rs. 5,400/qtl — 8 km — Nearest, fast sale\n- Bardoli: Rs. 5,300/qtl — 28 km\n- Navsari: Rs. 5,250/qtl — 38 km\n\nTip: Surat APMC gives best value considering price + travel cost. For 20+ quintals, Anand price difference covers transport. Moisture below 8% for premium pricing.`;
+  if(/fasal bima|insurance/i.test(ql))
+    return `Scheme: PM Fasal Bima Yojana (Crop Insurance)\nWho can apply: All farmers growing notified crops in Gujarat\nBenefit: Insurance cover for crop loss due to drought, flood, pest or disease\n\n1. Visit your bank or CSC before crop sowing\n2. Fill application with crop and land details\n3. Pay premium — Kharif: 2%, Rabi: 1.5% of sum insured\n4. Claim within 72 hours of crop damage\n\nDocuments needed:\n- Aadhaar card\n- Land records (7/12 extract)\n- Bank passbook\n- Crop sowing certificate\n\nHelpline: 1800-180-1551 (toll free)\n\nTip: Enroll before deadline — Kharif deadline is usually July 31st.`;
+  return `I am Navjeevan AI — your smart farming assistant for Gujarat! 🌾\n\nI can help you with:\n- **Best markets** to sell wheat, cotton, groundnut\n- **Govt schemes** — PM Kisan, Fasal Bima, KCC\n- **Documents** — complete checklists for any purpose\n- **Trader contacts** — local buyers in Surat, Navsari\n- **APMC mandis** — locations, timings, prices\n\nTry clicking any quick query button on the left, or type your question below. The more specific you are, the better my answer! 🌱`;
+}
+</script>
+</body>
+</html>

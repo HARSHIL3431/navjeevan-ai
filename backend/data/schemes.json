@@ -1,0 +1,26 @@
+[
+  {
+    "scheme": "PM-KISAN",
+    "keywords": ["pm kisan", "kisan samman", "scheme", "yojana"],
+    "who_can_apply": "Landholding farmer families with valid records.",
+    "benefit": "Rs. 6,000 per year in three direct bank installments.",
+    "steps": [
+      "Visit nearest CSC or agriculture office.",
+      "Submit Aadhaar, bank, and land details."
+    ],
+    "documents": ["Aadhaar card", "Land record copy", "Bank passbook"],
+    "helpline": "155261"
+  },
+  {
+    "scheme": "PM Fasal Bima Yojana",
+    "keywords": ["fasal bima", "insurance", "crop loss"],
+    "who_can_apply": "Farmers growing notified crops in notified areas.",
+    "benefit": "Insurance support for crop loss from natural risks.",
+    "steps": [
+      "Apply through bank/CSC before deadline.",
+      "Report crop loss within 72 hours."
+    ],
+    "documents": ["Aadhaar card", "Land record", "Bank details"],
+    "helpline": "1800-180-1551"
+  }
+]
