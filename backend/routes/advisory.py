@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends
-from datetime import datetime
+from fastapi import APIRouter, Depends, Request
+from datetime import datetime, timezone
 import dataclasses
 from backend.models.request_models import AdvisoryRequest
 from backend.models.response_models import StandardResponse, AdvisoryResponsePayload
@@ -10,12 +10,15 @@ from backend.services.ai_formatter import AIFormatterService
 
 router = APIRouter(prefix="/api/v1/advisory", tags=["Advisory"])
 
-# Dependency injection for providers
-def get_weather_provider() -> WeatherProvider:
-    return WeatherProvider()
 
-def get_rule_provider() -> RuleProvider:
-    return RuleProvider()
+def get_weather_provider(request: Request) -> WeatherProvider:
+    # Use singleton from app.state so cache persists across requests
+    return request.app.state.weather_provider
+
+
+def get_rule_provider(request: Request) -> RuleProvider:
+    return request.app.state.rule_provider
+
 
 def get_advisory_engine(
     weather: WeatherProvider = Depends(get_weather_provider),
@@ -23,8 +26,10 @@ def get_advisory_engine(
 ) -> AdvisoryEngine:
     return AdvisoryEngine(weather_provider=weather, rule_provider=rules)
 
+
 def get_ai_formatter() -> AIFormatterService:
     return AIFormatterService()
+
 
 @router.post("", response_model=StandardResponse[AdvisoryResponsePayload])
 async def get_advisory(
@@ -32,28 +37,23 @@ async def get_advisory(
     engine: AdvisoryEngine = Depends(get_advisory_engine),
     ai_formatter: AIFormatterService = Depends(get_ai_formatter)
 ):
-    # 1. Map to DTO
     req_dto = AdvisoryRequestDTO(
         crop=request.crop,
         location=request.location,
         sowing_date=request.sowing_date
     )
-    
-    # 2. Execute Decision Engine
+
     advisory_dto = await engine.execute_pipeline(req_dto)
-    
-    # 3. AI Formatting
     ai_advice = await ai_formatter.format_advisory(advisory_dto)
-    
-    # 4. Map to Response Payload
+
     payload = AdvisoryResponsePayload(
         decision_data=dataclasses.asdict(advisory_dto),
         ai_advice=ai_advice
     )
-    
+
     return StandardResponse(
         status="success",
         message="Advisory generated successfully",
         data=payload,
-        timestamp=datetime.now(datetime.UTC).isoformat()
+        timestamp=datetime.now(timezone.utc).isoformat()  # fixed: was datetime.UTC
     )

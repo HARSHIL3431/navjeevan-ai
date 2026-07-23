@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2F6B2F;
+  --color-primary-dark: #1E4A1E;
+  --color-primary-light: #428842;
+  --color-lightGreen: #6FAF52;
+  --color-accentYellow: #F7C948;
+  --color-bgSoft: #F8FAF6;
+  --color-darkText: #1B1B1B;
+  --color-grayText: #6B7280;
+  --color-borderColor: #E5E7EB;
+  --font-sans: 'Inter', 'Poppins', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F8FAF6;
+  color: #1B1B1B;
+  overflow-x: hidden;
+  font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.max-w-container {
+  max-width: 1400px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-dark {
+  background: rgba(28, 50, 28, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8FAF6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2F6B2F;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1E4A1E;
+}

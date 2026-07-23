@@ -158,19 +158,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .msgs::-webkit-scrollbar-thumb{background:#D8CEBB;border-radius:4px;}
 
 /* WELCOME CARD */
-.wcard{background:var(--cream);border:1px solid #E0D8C8;border-radius:12px;overflow:hidden;box-shadow:0 2px 14px rgba(28,16,8,0.07);}
-.wc-strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;height:155px;gap:2px;}
-.wc-strip img{width:100%;height:100%;object-fit:cover;display:block;}
-.wc-body{padding:20px 22px;}
-.wc-hi{font-size:21px;font-weight:700;color:var(--soil);margin-bottom:3px;}
-.wc-sub{font-family:'Playfair Display',serif;font-size:14px;color:var(--clay);font-style:italic;margin-bottom:11px;}
-.wc-desc{font-size:13px;color:#6A5040;line-height:1.7;margin-bottom:16px;}
-.wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
-.wc-fc{background:var(--smoke);border:1px solid #E0D8C8;border-radius:8px;padding:11px;cursor:pointer;transition:all .14s;}
-.wc-fc:hover{background:rgba(212,148,58,0.1);border-color:rgba(212,148,58,0.4);transform:translateY(-1px);}
-.wc-fi{font-size:20px;margin-bottom:5px;}
-.wc-ft{font-size:12px;font-weight:600;color:var(--soil);}
-.wc-fd{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.wcard{background:#FFFFFF;border:1.5px solid #D8CEBB;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(28,16,8,0.12);animation:mIn .4s cubic-bezier(0.16, 1, 0.3, 1);}
+.wc-strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;height:140px;gap:2px;position:relative;}
+.wc-strip img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);}
+.wc-body{padding:24px;background:#FFFFFF;}
+.wc-hi{font-size:26px;font-weight:800;color:#1C1008;margin-bottom:6px;letter-spacing:-0.01em;}
+.wc-sub{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#2F6B2F;margin-bottom:12px;}
+.wc-desc{font-size:15px;color:#2C221E;line-height:1.75;margin-bottom:20px;font-weight:500;}
+.wc-desc strong{color:#1C1008;font-weight:700;}
+.wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.wc-fc{background:#F8FAF6;border:1.5px solid #E0D8C8;border-radius:12px;padding:14px;cursor:pointer;transition:all .25s ease;}
+.wc-fc:hover{background:#FFFFFF;border-color:#2F6B2F;transform:translateY(-3px);box-shadow:0 6px 16px rgba(47,107,47,0.15);}
+.wc-fi{font-size:24px;margin-bottom:6px;}
+.wc-ft{font-size:14px;font-weight:700;color:#1C1008;}
+.wc-fd{font-size:11.5px;color:#5A4030;margin-top:3px;line-height:1.4;font-weight:500;}
+
 
 /* BUBBLES */
 .mrow{display:flex;gap:10px;animation:mIn .25s ease;}
@@ -260,7 +262,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
       <div class="nav-leaf">🌱</div>
       <div><div class="nav-name">Navjeevan AI</div><span class="nav-tag">नवजीवन · New Life</span></div>
     </div>
-    <button class="nav-cta" onclick="openModal()">Start Chatting →</button>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <button class="btn-o" style="padding:8px 18px;font-size:13px;border-color:rgba(212,148,58,0.5);color:var(--wheat);" onclick="openModalQ('Live weather forecast Surat Gujarat spray advisory')">🌤️ Weather Detection</button>
+      <button class="nav-cta" onclick="openModal()">Start Chatting →</button>
+    </div>
   </nav>
 
   <div class="hero">
@@ -281,10 +286,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
       <div>
         <div class="hero-hi">किसान का सच्चा साथी · AI Powered</div>
         <h1 class="hero-h1">Smart answers<br/>for every<br/><em>Indian Farmer</em></h1>
-        <p class="hero-p">Ask about the best market to sell your crop, government scheme eligibility, document checklists, and APMC mandis — all in plain language.</p>
+        <p class="hero-p">Ask about the best market to sell your crop, government scheme eligibility, document checklists, APMC mandis, and live weather rain forecasts.</p>
         <div class="hero-btns">
           <button class="btn-g" onclick="openModal()">Start Chatting →</button>
-          <button class="btn-o" onclick="openModal()">See Live Demo</button>
+          <button class="btn-o" style="border-color:#2F6B2F;color:#F7C948;font-weight:700;" onclick="openModalQ('Live weather forecast Surat Gujarat spray advisory')">🌤️ Weather Detection</button>
         </div>
         <div class="hero-stats">
           <div><div class="sn">6</div><div class="sl">AI Features</div></div>
@@ -295,6 +300,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
       <div class="feat-panel">
         <div class="feat-panel-title">What can I help with?</div>
         <div class="feat-list">
+          <div class="feat-row" onclick="openModalQ('Live weather forecast Surat Gujarat spray advisory')">
+            <div class="feat-ic" style="background:rgba(47,107,47,0.25);">🌤️</div>
+            <div><div class="feat-t">Weather & Spray Advisor</div><div class="feat-s">Live temperature, humidity & 3-day rain risk</div></div>
+          </div>
           <div class="feat-row" onclick="openModalQ('Best market to sell wheat in Surat today')">
             <div class="feat-ic" style="background:rgba(212,148,58,0.15);">🌾</div>
             <div><div class="feat-t">Smart Market Helper</div><div class="feat-s">Best price, nearest mandi, trader contacts</div></div>
@@ -315,6 +324,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
             <div class="feat-ic" style="background:rgba(160,82,45,0.12);">🏪</div>
             <div><div class="feat-t">APMC Mandi Finder</div><div class="feat-s">Location, timings, crops traded</div></div>
           </div>
+
           <div class="feat-row" onclick="openModalQ('Compare groundnut prices Gujarat mandis')">
             <div class="feat-ic" style="background:rgba(212,148,58,0.12);">📊</div>
             <div><div class="feat-t">Price Comparison</div><div class="feat-s">Market vs market, best deal</div></div>
@@ -432,20 +442,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 <script>
 let APIKEY='', DEMO=false, busy=false, pq='';
 
-function openModal(q){ pq=q||''; document.getElementById('modal').style.display='flex'; }
-function openModalQ(q){ openModal(q); }
-function doKey(){
-  const k=document.getElementById('apiinput').value.trim();
-  APIKEY=k; DEMO=false; launchChat();
+function openModal(q){ 
+  DEMO = true; 
+  launchChat(); 
+  if(q){ setTimeout(() => { qqry(q); }, 300); } 
 }
-function doDemo(){ DEMO=true; APIKEY=''; launchChat(); }
+function openModalQ(q){ openModal(q); }
+function doKey(){ launchChat(); }
+function doDemo(){ launchChat(); }
 function launchChat(){
-  document.getElementById('modal').style.display='none';
+  const m = document.getElementById('modal');
+  if(m) m.style.display='none';
   document.getElementById('landing').style.display='none';
   document.getElementById('chatapp').style.display='block';
-  document.getElementById('slabel').textContent = DEMO ? 'Demo Mode' : 'Live AI';
-  if(pq){ setTimeout(()=>{qqry(pq);pq='';},400); }
+  document.getElementById('slabel').textContent = 'Live AI Assistant';
 }
+
 function goBack(){
   document.getElementById('chatapp').style.display='none';
   document.getElementById('landing').style.display='block';
@@ -561,11 +573,12 @@ async function callAPI(q){
   if(!r.ok){
     let e={};
     try{ e=await r.json(); }catch(_){ e={}; }
-    throw new Error(e.detail||e.response||('API error '+r.status));
+    throw new Error(e.detail||e.message||e.response||('API error '+r.status));
   }
   const data=await r.json();
-  return data.response || 'Sorry, I do not have a response right now.';
+  return data.response || data.data || 'Sorry, I do not have a response right now.';
 }
+
 
 function demoR(q){
   const ql=q.toLowerCase();
