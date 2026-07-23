@@ -2,14 +2,17 @@ from pydantic import BaseModel, Field, validator
 
 
 class ChatRequest(BaseModel):
-    query: str = Field(..., min_length=2)
+    query: str = Field(..., min_length=2, max_length=1000, description="User query text")
 
-    @validator("query")
-    def validate_query(cls, value: str) -> str:
-        text = (value or "").strip()
-        if len(text) < 2:
-            raise ValueError("Query must contain at least 2 characters")
-        return text
+    @validator("query", pre=True)
+    @classmethod
+    def strip_and_validate_query(cls, v: str) -> str:
+        if not isinstance(v, str):
+            raise ValueError("query must be a string")
+        v = v.strip()
+        if len(v) < 2:
+            raise ValueError("query must contain at least 2 non-whitespace characters")
+        return v
 
 
 class ChatResponse(BaseModel):

@@ -20,16 +20,214 @@
         "pest": {
             "pests": [
                 {"name": "Aphids", "min_temp": 15, "max_temp": 25, "min_humidity": 60},
-                {"name": "Rust", "min_temp": 10, "max_temp": 22, "min_humidity": 80}
+                {"name": "Rust", "min_temp": 10, "max_temp": 22, "min_humidity": 80},
+                {"name": "Powdery Mildew", "min_temp": 15, "max_temp": 25, "min_humidity": 70}
             ]
         },
         "fertilizer": {
             "requirements": {
                 "wheat": {
-                    "germination": {"N": 20, "P": 40, "K": 20, "notes": "Basal dose"},
-                    "vegetative": {"N": 60, "P": 0, "K": 0, "notes": "Top dressing"},
+                    "germination": {"N": 20, "P": 40, "K": 20, "notes": "Basal dose at sowing"},
+                    "vegetative": {"N": 60, "P": 0, "K": 0, "notes": "Top dressing at tillering"},
                     "flowering": {"N": 40, "P": 0, "K": 20, "notes": "Before flowering"},
                     "mature": {"N": 0, "P": 0, "K": 0, "notes": "No fertilizer needed"}
+                }
+            }
+        }
+    },
+    "cotton": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 14},
+                {"name": "vegetative", "min_days": 15, "max_days": 60},
+                {"name": "flowering", "min_days": 61, "max_days": 100},
+                {"name": "boll_development", "min_days": 101, "max_days": 150},
+                {"name": "mature", "min_days": 151, "max_days": 180}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 20.0,
+            "stage_modifiers": {
+                "germination": 0.6,
+                "vegetative": 1.0,
+                "flowering": 1.8,
+                "boll_development": 1.5,
+                "mature": 0.3
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Bollworm", "min_temp": 25, "max_temp": 38, "min_humidity": 50},
+                {"name": "Whitefly", "min_temp": 24, "max_temp": 36, "min_humidity": 40},
+                {"name": "Aphids", "min_temp": 20, "max_temp": 30, "min_humidity": 55},
+                {"name": "Thrips", "min_temp": 22, "max_temp": 35, "min_humidity": 45}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "cotton": {
+                    "germination": {"N": 25, "P": 50, "K": 25, "notes": "Basal dose"},
+                    "vegetative": {"N": 50, "P": 0, "K": 25, "notes": "First top dressing"},
+                    "flowering": {"N": 50, "P": 0, "K": 25, "notes": "Second top dressing"},
+                    "boll_development": {"N": 25, "P": 0, "K": 0, "notes": "Light dose for boll filling"},
+                    "mature": {"N": 0, "P": 0, "K": 0, "notes": "No fertilizer needed"}
+                }
+            }
+        }
+    },
+    "groundnut": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 12},
+                {"name": "vegetative", "min_days": 13, "max_days": 40},
+                {"name": "flowering", "min_days": 41, "max_days": 70},
+                {"name": "pegging", "min_days": 71, "max_days": 100},
+                {"name": "mature", "min_days": 101, "max_days": 130}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 12.0,
+            "stage_modifiers": {
+                "germination": 0.6,
+                "vegetative": 0.9,
+                "flowering": 1.4,
+                "pegging": 1.6,
+                "mature": 0.3
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Leaf Miner", "min_temp": 22, "max_temp": 35, "min_humidity": 55},
+                {"name": "Aphids", "min_temp": 18, "max_temp": 28, "min_humidity": 60},
+                {"name": "White Grub", "min_temp": 20, "max_temp": 32, "min_humidity": 65},
+                {"name": "Tikka Disease", "min_temp": 25, "max_temp": 35, "min_humidity": 80}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "groundnut": {
+                    "germination": {"N": 15, "P": 40, "K": 30, "notes": "Basal dose at sowing"},
+                    "vegetative": {"N": 0, "P": 0, "K": 0, "notes": "Groundnut fixes its own nitrogen"},
+                    "flowering": {"N": 10, "P": 0, "K": 15, "notes": "Gypsum application recommended"},
+                    "pegging": {"N": 0, "P": 0, "K": 0, "notes": "Ensure adequate calcium"},
+                    "mature": {"N": 0, "P": 0, "K": 0, "notes": "No fertilizer needed"}
+                }
+            }
+        }
+    },
+    "rice": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 10},
+                {"name": "vegetative", "min_days": 11, "max_days": 55},
+                {"name": "flowering", "min_days": 56, "max_days": 85},
+                {"name": "grain_filling", "min_days": 86, "max_days": 110},
+                {"name": "mature", "min_days": 111, "max_days": 130}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 25.0,
+            "stage_modifiers": {
+                "germination": 1.0,
+                "vegetative": 1.5,
+                "flowering": 2.0,
+                "grain_filling": 1.2,
+                "mature": 0.4
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Brown Planthopper", "min_temp": 24, "max_temp": 35, "min_humidity": 70},
+                {"name": "Stem Borer", "min_temp": 22, "max_temp": 34, "min_humidity": 65},
+                {"name": "Blast", "min_temp": 20, "max_temp": 30, "min_humidity": 85},
+                {"name": "Leaf Folder", "min_temp": 25, "max_temp": 35, "min_humidity": 75}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "rice": {
+                    "germination": {"N": 30, "P": 30, "K": 30, "notes": "Basal dose at transplanting"},
+                    "vegetative": {"N": 40, "P": 0, "K": 20, "notes": "First top dressing at tillering"},
+                    "flowering": {"N": 40, "P": 0, "K": 0, "notes": "Second top dressing at panicle initiation"},
+                    "grain_filling": {"N": 0, "P": 0, "K": 0, "notes": "Ensure water availability"},
+                    "mature": {"N": 0, "P": 0, "K": 0, "notes": "Drain field 10 days before harvest"}
+                }
+            }
+        }
+    },
+    "paddy": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 10},
+                {"name": "vegetative", "min_days": 11, "max_days": 55},
+                {"name": "flowering", "min_days": 56, "max_days": 85},
+                {"name": "grain_filling", "min_days": 86, "max_days": 110},
+                {"name": "mature", "min_days": 111, "max_days": 130}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 25.0,
+            "stage_modifiers": {
+                "germination": 1.0,
+                "vegetative": 1.5,
+                "flowering": 2.0,
+                "grain_filling": 1.2,
+                "mature": 0.4
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Brown Planthopper", "min_temp": 24, "max_temp": 35, "min_humidity": 70},
+                {"name": "Stem Borer", "min_temp": 22, "max_temp": 34, "min_humidity": 65},
+                {"name": "Blast", "min_temp": 20, "max_temp": 30, "min_humidity": 85},
+                {"name": "Gall Midge", "min_temp": 25, "max_temp": 33, "min_humidity": 80}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "paddy": {
+                    "germination": {"N": 30, "P": 30, "K": 30, "notes": "Basal dose at transplanting"},
+                    "vegetative": {"N": 40, "P": 0, "K": 20, "notes": "First top dressing at active tillering"},
+                    "flowering": {"N": 40, "P": 0, "K": 0, "notes": "Top dressing at panicle initiation"},
+                    "grain_filling": {"N": 0, "P": 0, "K": 0, "notes": "Maintain shallow water"},
+                    "mature": {"N": 0, "P": 0, "K": 0, "notes": "Drain field before harvest"}
+                }
+            }
+        }
+    },
+    "sugarcane": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 35},
+                {"name": "tillering", "min_days": 36, "max_days": 120},
+                {"name": "grand_growth", "min_days": 121, "max_days": 270},
+                {"name": "ripening", "min_days": 271, "max_days": 365}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 30.0,
+            "stage_modifiers": {
+                "germination": 0.8,
+                "tillering": 1.2,
+                "grand_growth": 2.0,
+                "ripening": 0.5
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Early Shoot Borer", "min_temp": 25, "max_temp": 38, "min_humidity": 55},
+                {"name": "Internode Borer", "min_temp": 28, "max_temp": 38, "min_humidity": 60},
+                {"name": "Woolly Aphid", "min_temp": 20, "max_temp": 30, "min_humidity": 65},
+                {"name": "Red Rot", "min_temp": 28, "max_temp": 35, "min_humidity": 85}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "sugarcane": {
+                    "germination": {"N": 50, "P": 85, "K": 60, "notes": "Full basal dose at planting"},
+                    "tillering": {"N": 75, "P": 0, "K": 0, "notes": "First top dressing"},
+                    "grand_growth": {"N": 75, "P": 0, "K": 60, "notes": "Second top dressing for cane development"},
+                    "ripening": {"N": 0, "P": 0, "K": 0, "notes": "Stop nitrogen to improve sugar content"}
                 }
             }
         }
