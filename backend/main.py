@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.routes.chat import router as chat_router
+from backend.routes.advisory import router as advisory_router
 from backend.services.data_service import load_data
 
 logging.basicConfig(level=logging.INFO)
@@ -58,3 +59,4 @@ async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONR
 
 
 app.include_router(chat_router, tags=["chat"])
+app.include_router(advisory_router)

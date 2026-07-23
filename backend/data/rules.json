@@ -1,0 +1,37 @@
+{
+    "wheat": {
+        "crop_stage": {
+            "stages": [
+                {"name": "germination", "min_days": 0, "max_days": 10},
+                {"name": "vegetative", "min_days": 11, "max_days": 50},
+                {"name": "flowering", "min_days": 51, "max_days": 80},
+                {"name": "mature", "min_days": 81, "max_days": 120}
+            ]
+        },
+        "irrigation": {
+            "rain_threshold_mm": 15.0,
+            "stage_modifiers": {
+                "germination": 0.5,
+                "vegetative": 1.0,
+                "flowering": 1.5,
+                "mature": 0.2
+            }
+        },
+        "pest": {
+            "pests": [
+                {"name": "Aphids", "min_temp": 15, "max_temp": 25, "min_humidity": 60},
+                {"name": "Rust", "min_temp": 10, "max_temp": 22, "min_humidity": 80}
+            ]
+        },
+        "fertilizer": {
+            "requirements": {
+                "wheat": {
+                    "germination": {"N": 20, "P": 40, "K": 20, "notes": "Basal dose"},
+                    "vegetative": {"N": 60, "P": 0, "K": 0, "notes": "Top dressing"},
+                    "flowering": {"N": 40, "P": 0, "K": 20, "notes": "Before flowering"},
+                    "mature": {"N": 0, "P": 0, "K": 0, "notes": "No fertilizer needed"}
+                }
+            }
+        }
+    }
+}
