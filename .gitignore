@@ -14,3 +14,4 @@ dist/
 build/ 
 .vscode/ 
 Agriculture_price_dataset.csv 
+backend/venv/
