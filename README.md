@@ -207,13 +207,6 @@ Empowering Indian farmers with accessible, real-time AI-driven intelligence for 
 
 ---
 
-## 👨‍💻 Authors & Contributors
-
-- **Harshil Thakkar** ([@HARSHIL3431](https://github.com/HARSHIL3431))
-- **Jiya Sadaria**
-
----
-
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more details.
