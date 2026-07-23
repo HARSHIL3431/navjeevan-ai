@@ -2,10 +2,12 @@ import logging
 import uuid
 from typing import Any, Dict, List, Optional
 
+import os
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from backend.routes.chat import router as chat_router
@@ -51,6 +53,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+if os.path.exists("frontend/dist/assets"):
+    app.mount("/assets", StaticFiles(directory="frontend/dist/assets"), name="assets")
+
 
 @app.on_event("startup")
 def startup_event() -> None:
@@ -61,9 +66,26 @@ def startup_event() -> None:
     app.state.rule_provider = RuleProvider()
 
 
-@app.get("/")
+@app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "navjeevan-ai-backend"}
+
+
+@app.get("/", response_class=FileResponse)
+@app.get("/app", response_class=FileResponse)
+@app.get("/ui", response_class=FileResponse)
+def serve_ui():
+    if os.path.exists("frontend/public/navjeevan-ai.html"):
+        return FileResponse("frontend/public/navjeevan-ai.html")
+    return FileResponse("frontend/dist/index.html")
+
+
+@app.get("/react", response_class=FileResponse)
+def serve_react():
+    return FileResponse("frontend/dist/index.html")
+
+
+
 
 
 # Security headers on every response
@@ -96,3 +118,9 @@ async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONR
 app.include_router(chat_router, tags=["chat"])
 app.include_router(advisory_router)
 app.include_router(weather_router)
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, reload=True)
+
